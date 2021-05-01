@@ -1,0 +1,5 @@
+/.vscode
+*.pyc
+/Notes/__pycache__
+/Notes/migrations/__pycache__
+/Notes_app/__pycache__
