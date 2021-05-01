@@ -1,0 +1,48 @@
+{% extends "Notes/layout.html" %}
+{% load static %}
+{% block head %}
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-analytics.js"></script>
+<script src="{% static 'Notes/js/config.js' %}"></script>
+<script src="https://www.gstatic.com/firebasejs/ui/4.7.3/firebase-ui-auth.js"></script>
+<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.7.3/firebase-ui-auth.css">
+<script>
+    var url = "{% url 'continue' %}";
+</script>
+<script src="{% static 'Notes/js/app.js' %}"></script>
+<style>
+    .firebaseui-card-footer {
+        display: none;
+    }
+
+</style>
+
+{% endblock %}
+{% block body %}
+<div class="logbody">
+    <div class="p-4 d-inline-block card box shadow-lg">
+        <img src="{% static 'Notes/favicon.png' %}" width=50px>
+        <h5 class="display-6 text-center">Welcome Back</h5>
+        <br>
+        <form class="mx-auto" method="POST">
+            {% csrf_token %}
+            {% include "Notes/message.html" %}
+            {% for form in forms %}
+            <div class="form-floating mb-3 mx-3">
+                {{form}}
+                <label for={{form.id_for_label}}>{{form.label}}</label>
+            </div>
+            {% endfor %}
+            <div class="text-center">
+                <div><a href="{% url 'forget' %}" class="d-block link-dark me-3" style="text-align: end;">Forget Password</a></div>
+                <button class="btn btn-dark btn-lg my-3 mx-4 px-4" type="submit">Login</button>
+                <div class="mt-1">
+                    <p class="lead">OR</p>
+                    <div id="firebaseui-auth-container"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

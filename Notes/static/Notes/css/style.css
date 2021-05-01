@@ -1,0 +1,157 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  background-color: rgb(63, 94, 251) !important;
+  overscroll-behavior-y: none;
+}
+.body {
+  height: 92vh;
+  background-image: linear-gradient(-45deg, #ebbc3b, #e79b29, #6da7e9, #137cf5);
+  background-size: 400% 400%;
+  animation: gradient-animate 10s ease infinite;
+  background-color: #137cf5;
+}
+.disp {
+  width: 50% !important;
+  background-color: white;
+  border: 5px solid transparent;
+  border-image: linear-gradient(135deg, #fc466b, #1c9a9c);
+  border-image-slice: 1;
+  position: absolute;
+  left: 50%;
+  top: 53%;
+  transform: translate(-50%, -50%);
+}
+#Typing {
+  overflow: hidden;
+  font-family: monospace;
+  font-size: 1.75rem;
+  margin: 0 auto;
+  letter-spacing: 0.15rem;
+}
+.cursor::after {
+  content: "|";
+  display: inline-block;
+  animation: blinker 0.5s step-end infinite;
+}
+.box {
+  width: 40% !important;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.logbody {
+  height: 92vh;
+  background-color: rgb(63, 94, 251);
+  background-image: linear-gradient(
+    -45deg,
+    rgba(63, 94, 251, 1) 0%,
+    rgba(247, 70, 252, 1) 100%
+  );
+}
+@media screen and (max-width: 574px) {
+  .disp {
+    width: 95% !important;
+  }
+  .box {
+    width: 95% !important;
+  }
+  .end {
+    width: 100%;
+  }
+}
+@keyframes blinker {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes typing {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+@keyframes gradient-animate {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.edit {
+  width: inherit;
+  height: 55vh;
+  overflow: auto;
+  outline: none;
+  white-space: pre-wrap;
+  resize: none;
+  border: none;
+  font-family: "Arvo", serif;
+}
+#def-card {
+  width: 500px;
+}
+.sm-hide {
+  display: block;
+}
+@media screen and (max-width: 574px) {
+  .edit {
+    height: 40vh;
+  }
+  #def-card {
+    width: 95%;
+  }
+  .sm-hide {
+    display: none;
+  }
+}
+.size {
+  width: 100px !important;
+}
+
+.btn-grad {
+  background-image: linear-gradient(
+    to right,
+    #314755 0%,
+    #26a0da 51%,
+    #314755 100%
+  );
+}
+.btn-grad2 {
+  background-image: linear-gradient(
+    to right,
+    #26a0da 0%,
+    #314755 51%,
+    #26a0da 100%
+  );
+}
+.btn-grad,
+.btn-grad2 {
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s !important;
+  background-size: 200% auto;
+  color: white !important;
+  border-radius: 10px;
+  display: block;
+}
+
+.btn-grad:hover,
+.btn-grad2:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}

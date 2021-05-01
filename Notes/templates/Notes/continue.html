@@ -1,0 +1,33 @@
+{% extends "Notes/layout.html" %}
+{% load static %}
+{% block head %}
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-analytics.js"></script>
+<script src="{% static 'Notes/js/config.js' %}"></script>
+<script>
+    var defPhoto = "{% static 'Notes/user.png' %}";
+</script>
+<script src="{% static 'Notes/js/after.js' %}"></script>
+{% endblock %}
+{% block body %}
+<div class="logbody">
+    <div class="p-4 d-inline-block card box shadow-lg">
+        <img src="{% static 'Notes/favicon.png' %}" width=50px alt="notes-logo">
+        <br>
+        <div id="loader" width=250px height=250px class="text-center m-5">
+            <div class="spinner-grow text-danger" style="width: 5rem;height: 5rem;" role="status">
+            </div>
+        </div>
+        <div class="text-center mt-3" id="content" style="display: none;">
+            <img id="Photo" class="img-thumbnail" alt="google account image" width=200px style="border-radius:50% ;">
+            <h4 class="display-6 text-center">Welcome,<span id="Uname"></span></h4>
+            <form method="POST" class="text-center mt-3">
+                {% csrf_token %}
+                <input type="hidden" name="details" id="account-details">
+                <button type="submit" class="btn btn-dark btn-lg">Continue to Homepage</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

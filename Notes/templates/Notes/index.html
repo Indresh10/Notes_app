@@ -1,0 +1,30 @@
+{% extends 'Notes/layout.html' %}
+{% load static %}
+{% block body %}
+<div class="body">
+    <div class="container text-center p-3 disp shadow-lg align-middle">
+        <img src="{% static 'Notes/notes-logo.png'%}" class="img-fluid">
+        <h1 class="display-3">Welcome to Notes</h1>
+        <p class="cursor mb-5" id="Typing"></p>
+    </div>
+
+</div>
+{% for message in messages %}
+<script>
+    alert("{{ message| safe}}");
+</script>
+{% endfor %}
+<script>
+    var text = "Create, Save and Share.";
+    var i = 0;
+    var ele = document.getElementById("Typing");
+    function type() {
+        if (i < text.length) {
+            ele.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, 100);
+        }
+    }
+    type();
+</script>
+{% endblock %}

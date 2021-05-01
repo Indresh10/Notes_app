@@ -1,0 +1,22 @@
+{% extends "Notes/layout.html" %}
+{% load static %}
+{% block body %}
+<div class="logbody">
+    <div class="p-4 d-inline-block card box shadow-lg">
+        <img src="{% static 'Notes/favicon.png' %}" width=50px>
+        <h2 class="text-center">Reset Password</h2>
+        <br>
+        <form class="mx-auto mt-3" method="POST">
+            {% csrf_token %}
+            {% include "Notes/message.html" %}
+            <div class="form-floating mb-3 mx-3">
+                <input type="email" name="Email" class="form-control" placeholder="Em@il" required="" id="id_Email">
+                <label for="id_Email">Em@il</label>
+            </div>
+            <div class="text-center">
+                <button class="btn btn-dark mt-2 mx-3 px-4 btn-lg" type="submit">Send Link</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

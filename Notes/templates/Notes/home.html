@@ -1,0 +1,419 @@
+{% extends "Notes/layout.html" %}
+{% load static %}
+{% block body %}
+<div class="offcanvas offcanvas-end bg-dark text-white" id="offcanvas" aria-labelledby="offcanvasLabel" data-bs-backdrop="false" data-bs-scroll="true">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasLabel">Notes</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="nav d-flex flex-column nav-pills nav-fill me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <button class="nav-link active text-start text-white d-none" id="def" data-bs-dismiss="offcanvas" data-bs-toggle="pill" data-bs-target="#def-content" type="button" role="tab" aria-controls="def-content" aria-selected="true">default</button>
+            <button class="nav-link text-start text-white d-none" id="file1" data-bs-dismiss="offcanvas" data-bs-toggle="pill" data-bs-target="#file1-tab" type="button" role="tab" aria-controls="file1-tab" aria-selected="false">
+                <span id="file1-title">File1</span><a class="btn-close btn-close-white float-end" aria-label="Close" onclick="closeFile(1)"></a>
+            </button>
+            <button class="nav-link text-start text-white d-none" id="file2" data-bs-dismiss="offcanvas" data-bs-toggle="pill" data-bs-target="#file2-tab" type="button" role="tab" aria-controls="file2-tab" aria-selected="false">
+                <span id="file2-title">File2</span><a class="btn-close btn-close-white float-end" aria-label="Close" onclick="closeFile(2)"></a>
+            </button>
+            <button class="nav-link text-start text-white d-none" id="file3" data-bs-dismiss="offcanvas" data-bs-toggle="pill" data-bs-target="#file3-tab" type="button" role="tab" aria-controls="file3-tab" aria-selected="false">
+                <span id="file3-title">File3</span><a class="btn-close btn-close-white float-end" aria-label="Close" onclick="closeFile(3)"></a>
+            </button>
+            <button class="nav-link text-start text-white d-none" id="file4" data-bs-dismiss="offcanvas" data-bs-toggle="pill" data-bs-target="#file4-tab" type="button" role="tab" aria-controls="file4-tab" aria-selected="false">
+                <span id="file4-title">File4</span><a class="btn-close btn-close-white float-end" aria-label="Close" onclick="closeFile(4)"></a>
+            </button>
+            <button class="nav-link text-start text-white d-none" id="file5" data-bs-dismiss="offcanvas" data-bs-toggle="pill" data-bs-target="#file5-tab" type="button" role="tab" aria-controls="file5-tab" aria-selected="false">
+                <span id="file5-title">File5</span><a class="btn-close btn-close-white float-end" aria-label="Close" onclick="closeFile(5)"></a>
+            </button>
+        </div>
+        <div class="text-center">
+            <div class="btn-group-vertical my-5" role="group" id="btngrp">
+                <button type="button" class="btn btn-success btn-lg" id="new" data-bs-toggle="modal" data-bs-target="#newModal">Create new file</button>
+                <button type="button" class="btn btn-danger btn-lg px-4" id="open" onclick="openFile()">Open a File</button>
+                <button type="button" class="btn btn-warning btn-lg" id="new" data-bs-toggle="modal" data-bs-target="#themeModal">Select Theme</button>
+            </div>
+        </div>
+    </div>
+</div>
+<main>
+    <div class="container-fluid">
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="def-content" role="tabpanel" aria-labelledby="default">
+                <div id="def-card" class="card">
+                    <img src="{% static 'Notes/notes-logo.png' %}" class='card-img-top img-fluid mx-auto' style="width: 256px;height: 256px;" alt="notes-logo">
+                    <div id="def-card-body" class="card-body text-center my-2">
+                        <button type="button" class="btn btn-success btn-lg me-1 mt-1" id="new" data-bs-toggle="modal" data-bs-target="#newModal">Create new file</button>
+                        <button type="button" class="btn btn-danger btn-lg ms-1 mt-1" id="open" onclick="openFile()">Open a File</button>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="file1-tab" role="tabpanel" aria-labelledby="file1">
+                <div class="card m-2">
+                    <div class="card-header"><span id="file1_title">File1</span><a class="btn-close float-end" id="file1-close" aria-label="Close" onclick="closeFile(1)"></a></div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="row justify-content-center g-3 mx-auto">
+                                <div class="col-auto sm-hide">
+                                    <label for="selectFont1" class="col-form-label">Select Font</label>
+                                </div>
+                                <div class="col-auto">
+                                    <select id="selectFont1" class="form-select"></select>
+                                </div>
+                                <div class="col-auto sm-hide">
+                                    <label for="selectSize1" class="col-form-label">Select Font Size</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input value="16" list="list" min="8" max="72" type="number" id="selectSize1" class="size form-control">
+                                    <datalist id="list">
+                                        {% for size in sizes %}
+                                        <option value={{size}}></option>
+                                        {% endfor %}
+                                    </datalist>
+                                    <div class="invalid-tooltip">
+                                        Enter value between 8 to 72
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div id="file1-content" class="card-body">
+                        <pre id="pre">
+                            <code id="code" class="edit" style="white-space: pre-wrap;" contenteditable="true" autocorrect="off" autocapitalize="off" spellcheck="false"> </code>
+                        </pre>
+                    </div>
+                    <div class="card-footer text-end">
+                        <div class="btn-group">
+                            <button class="btn btn-grad" id="file1-save" onclick="SaveFile(1)">Save</button>
+                            <button class="btn btn-grad2" id="file1-saveas" onclick="SaveAs(1)">Save as</button>
+                            <button class="btn btn-grad" id="file1-share" onclick="shareFile(1)">Share</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="file2-tab" role="tabpanel" aria-labelledby="file2">
+                <div class="card m-2">
+                    <div class="card-header"><span id="file2_title"></span><a id="file2-close" class="btn-close float-end" aria-label="Close" onclick="closeFile(2)"></a></div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="row justify-content-center g-3 mx-auto">
+                                <div class="col-auto sm-hide">
+                                    <label for="selectFont2" class="col-form-label">Select Font</label>
+                                </div>
+                                <div class="col-auto">
+                                    <select id="selectFont2" class="form-select"></select>
+                                </div>
+                                <div class="col-auto sm-hide">
+                                    <label for="selectSize2" class="col-form-label">Select Font Size</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input value="16" list="list" min="8" max="72" type="number" id="selectSize2" class="size form-control">
+                                    <div class="invalid-tooltip">
+                                        Enter value between 8 to 72
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div id="file2-content" class="card-body">
+                        <pre id="pre">
+                            <code id="code" class="edit" style="white-space: pre-wrap;" contenteditable="true" autocorrect="off" autocapitalize="off" spellcheck="false"> </code>
+                        </pre>
+                    </div>
+                    <div class="card-footer text-end">
+                        <div class="btn-group">
+                            <button class="btn btn-grad" id="file2-save" onclick="SaveFile(2)">Save</button>
+                            <button class="btn btn-grad2" id="file2-saveas" onclick="SaveAs(2)">Save as</button>
+                            <button class="btn btn-grad" id="file2-share" onclick="shareFile(2)">Share</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="file3-tab" role="tabpanel" aria-labelledby="file3">
+                <div class="card m-2">
+                    <div class="card-header"><span id="file3_title"></span><a id="file3-close" class="btn-close float-end" aria-label="Close" onclick="closeFile(3)"></a></div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="row justify-content-center g-3 mx-auto">
+                                <div class="col-auto sm-hide">
+                                    <label for="selectFont3" class="col-form-label">Select Font</label>
+                                </div>
+                                <div class="col-auto">
+                                    <select id="selectFont3" class="form-select"></select>
+                                </div>
+                                <div class="col-auto sm-hide">
+                                    <label for="selectSize3" class="col-form-label">Select Font Size</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input value="16" list="list" min="8" max="72" type="number" id="selectSize3" class="size form-control">
+                                    <div class="invalid-tooltip">
+                                        Enter value between 8 to 72
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div id="file3-content" class="card-body">
+                        <pre id="pre">
+                            <code id="code" class="edit" style="white-space: pre-wrap;" contenteditable="true" autocorrect="off" autocapitalize="off" spellcheck="false"> </code>
+                        </pre>
+                    </div>
+                    <div class="card-footer text-end">
+                        <div class="btn-group">
+                            <button class="btn btn-grad" id="file3-save" onclick="SaveFile(3)">Save</button>
+                            <button class="btn btn-grad2" id="file3-saveas" onclick="SaveAs(3)">Save as</button>
+                            <button class="btn btn-grad" id="file3-share" onclick="shareFile(3)">Share</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="file4-tab" role="tabpanel" aria-labelledby="file4">
+                <div class="card m-2">
+                    <div class="card-header"><span id="file4_title"></span><a id="file4-close" class="btn-close  float-end" aria-label="Close" onclick="closeFile(4)"></a></div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="row justify-content-center g-3 mx-auto">
+                                <div class="col-auto sm-hide">
+                                    <label for="selectFont4" class="col-form-label">Select Font</label>
+                                </div>
+                                <div class="col-auto">
+                                    <select id="selectFont4" class="form-select"></select>
+                                </div>
+                                <div class="col-auto sm-hide">
+                                    <label for="selectSize4" class="col-form-label">Select Font Size</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input value="16" list="list" min="8" max="72" type="number" id="selectSize4" class="size form-control">
+                                    <div class="invalid-tooltip">
+                                        Enter value between 8 to 72
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div id="file4-content" class="card-body">
+                        <pre id="pre">
+                            <code id="code" class="edit" style="white-space: pre-wrap;" contenteditable="true" autocorrect="off" autocapitalize="off" spellcheck="false"> </code>
+                        </pre>
+                    </div>
+                    <div class="card-footer text-end">
+                        <div class="btn-group">
+                            <button class="btn btn-grad" id="file4-save" onclick="SaveFile(4)">Save</button>
+                            <button class="btn btn-grad2" id="file4-saveas" onclick="SaveAs(4)">Save as</button>
+                            <button class="btn btn-grad" id="file4-share" onclick="shareFile(4)">Share</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="file5-tab" role="tabpanel" aria-labelledby="file4">
+                <div class="card m-2">
+                    <div class="card-header"><span id="file5_title"></span><a id="file5-close" class="btn-close float-end" aria-label="Close" onclick="closeFile(5)"></a></div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="row justify-content-center g-3 mx-auto">
+                                <div class="col-auto sm-hide">
+                                    <label for="selectFont5" class="col-form-label">Select Font</label>
+                                </div>
+                                <div class="col-auto">
+                                    <select id="selectFont5" class="form-select"></select>
+                                </div>
+                                <div class="col-auto sm-hide">
+                                    <label for="selectSize5" class="col-form-label">Select Font Size</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input value="16" list="list" min="8" max="72" type="number" id="selectSize5" class="size form-control">
+                                    <div class="invalid-tooltip">
+                                        Enter value between 8 to 72
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div id="file5-content" class="card-body">
+                        <pre id="pre">
+                            <code id="code" class="edit" style="white-space: pre-wrap;" contenteditable="true" autocorrect="off" autocapitalize="off" spellcheck="false"> </code>
+                        </pre>
+                    </div>
+                    <div class="card-footer text-end">
+                        <div class="btn-group">
+                            <button class="btn btn-grad" id="file5-save" onclick="SaveFile(5)">Save</button>
+                            <button class="btn btn-grad2" id="file5-saveas" onclick="SaveAs(5)">Save as</button>
+                            <button class="btn btn-grad" id="file5-share" onclick="shareFile(5)">Share</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<input type="file" id="fileopen" style="display: none;">
+<a id="downloader" style="display: none;"></a>
+<div id="newModal" class="modal fade" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create new file</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="newname" class="form-label">Enter the name of file</label>
+                    <input type="text" class="form-control" id="newname" placeholder="XYZ">
+                </div>
+                <select id="newtype" class="form-select" aria-label="Default select">
+                    <option selected value="0">Select the File type</option>
+                    <option value=".txt">Text</option>
+                    <option value=".c">C</option>
+                    <option value=".cpp">C++</option>
+                    <option value=".py">Python</option>
+                    <option value=".java">Java</option>
+                    <option value=".html">Html</option>
+                    <option value=".css">Css</option>
+                    <option value=".js">JavaScript</option>
+                    <option value=".md">Markdown</option>
+                    <option value=".php">PHP</option>
+                    <option value=".rb">Ruby</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="createfile" class="btn btn-success" data-bs-dismiss="modal" onclick="newFile()">Create file</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="themeModal" class="modal fade" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Select Theme</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    {% csrf_token %}
+                    <div class="row justify-content-center">
+                        <div class="col-sm-6">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="theme" id="theme" value="0">
+                                Light theme 1<br>
+                                <img src="{% static 'Notes/prism-default.png' %}" class="img-fluid img-thumbnail">
+                            </label>
+                        </div>
+                        <div class="col-sm-6 ">
+
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="theme" id="theme" value="1">
+                                Light theme 2<br>
+                                <img src="{% static 'Notes/prism-coy.png' %}" class="img-fluid img-thumbnail">
+                            </label>
+                        </div>
+                        <div class="col-sm-6 ">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="theme" id="theme" value="2">
+                                Dark theme 1<br>
+                                <img src="{% static 'Notes/prism-night.png' %}" class="img-fluid img-thumbnail">
+                            </label>
+                        </div>
+                        <div class="col-sm-6 ">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="theme" id="theme" value="3">
+                                Dark theme 2<br>
+                                <img src="{% static 'Notes/prism-funky.png' %}" class="img-fluid img-thumbnail">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="themechanger" class="btn btn-success" data-bs-dismiss="modal" onclick="setTheme()">Okay</button>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="navbar sticky-bottom navbar-dark bg-dark" id="footer">
+    <div class="container-fluid text-white">
+        <h3 class="display-6 m-auto">Made with &hearts; in India</h3>
+        <span id="lfoot" class="text-end badge rounded-pill bg-light text-dark d-none">Legacy</span>
+    </div>
+</nav>
+<script src="{% static 'Notes/js/file.js' %}"></script>
+<script src="{% static 'Notes/js/index.js' %}"></script>
+<script src="{% static 'Notes/js/ui.js' %}"></script>
+<script src="{% static 'Notes/js/file-helper.js' %}"></script>
+<script src="{% static 'Notes/js/fallback.js' %}"></script>
+<script src="{% static 'Notes/js/prism.js' %}"></script>
+<script src="{% static 'Notes/js/textdiv.js' %}"></script>
+<script src="{% static 'Notes/js/misbehave.js' %}"></script>
+<script>
+    var code = document.querySelector('#code')
+    var misbehave = new Misbehave(code, {
+        oninput: function () {
+            Prism.highlightElement(code)
+        },
+        pairs: [ [ '(', ')' ], [ '{', '}' ], [ '[', ']' ], [ '<', '>' ], [ "'" ], [ "`" ], [ '"' ] ]
+    })
+
+    var pre = document.querySelector('#pre')
+    pre.onclick = function () {
+        code.focus()
+        return false
+    }
+</script>
+{% endblock %}
+{% block head %}
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Arvo&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap" rel="stylesheet">
+<link id="theme-css" href="{% static 'Notes/css/prism-default.css' %}" rel="stylesheet">
+<style>
+    #pre {
+        border-radius: 0;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        white-space: normal;
+        margin: 0;
+        padding: 0.5rem;
+        overflow: auto;
+    }
+
+    .card-body:not(#def-card-body) {
+        padding: 0;
+        position: relative;
+    }
+
+    html,
+    body {
+        margin: 0;
+        height: 100%;
+        min-height: 100%;
+    }
+
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
+    main {
+        flex-grow: 1;
+        position: relative;
+    }
+
+    #def-card {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .card:not(#def-card) {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+</style>
+{% endblock %}
