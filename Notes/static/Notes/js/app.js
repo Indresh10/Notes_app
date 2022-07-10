@@ -6,7 +6,7 @@ var uiConfig = {
     {
       provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,
       clientId:
-        "872499042379-1oflek2nmr0j5khn55d3m17ho9e5o0mv.apps.googleusercontent.com",
+        "<your-google-client-id>",
       customParameters: {
         // Forces account selection even when one account is available.
         prompt: "select_account",

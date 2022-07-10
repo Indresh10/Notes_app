@@ -171,4 +171,4 @@ PWA_APP_DEBUG_MODE = False
 PWA_SERVICE_WORKER_PATH = os.path.join(
     BASE_DIR, "Notes/static/Notes/js/serviceworker.js")
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

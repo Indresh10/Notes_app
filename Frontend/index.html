@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>notes</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Bootstrap CSS -->
+        <link href="index.css" rel="stylesheet" type="text/css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="prism-default.css">
+        <style>
+            #pre {
+                border-radius: 0;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                white-space: normal;
+                margin: 0;
+            }
+
+            .card-body {
+                padding: 0;
+                position: relative;
+            }
+
+            html,
+            body {
+                margin: 0;
+                height: 100%;
+                min-height: 100%;
+            }
+
+            body {
+                display: flex;
+                flex-direction: column;
+            }
+
+            main {
+                flex-grow: 1;
+                position: relative;
+            }
+
+            .card {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+            }
+
+        </style>
+    </head>
+
+    <body class="bg-primary">
+        <header>
+            <nav class="navbar navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <div class="navbar-brand lead" style="display: inline; float: left;">
+                        <a class="nav-link text-white text-bold py-0" style="display:inline-block;" data-bs-toggle="offcanvas" href="#offcanvas" role="button" aria-controls="offcanvas">
+                            &#9776;
+                        </a>
+                        Notes
+                    </div>
+
+                </div>
+            </nav>
+            <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="offcanvas" aria-labelledby="offcanvasLabel" data-bs-backdrop="false" data-bs-scroll="true">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasLabel">Notes</h5>
+                    <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div class="nav d-flex flex-column nav-pills nav-fill me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <button class="nav-link active text-start text-white" id="file1" data-bs-dismiss="offcanvas" data-bs-toggle="pill" data-bs-target="#file1-tab" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Home<a class="btn-close btn-close-white float-end" aria-label="Close"></a></button>
+                        <button class="nav-link text-start text-white" id="file2" data-bs-dismiss="offcanvas" data-bs-toggle="pill" data-bs-target="#file2-tab" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile<a class="btn-close btn-close-white float-end" aria-label="Close"></a></button>
+                        <button class="nav-link text-start text-white" id="file3" data-bs-dismiss="offcanvas" data-bs-toggle="pill" data-bs-target="#file3-tab" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages<a class="btn-close btn-close-white float-end" aria-label="Close"></a></button>
+                        <button class="nav-link text-start text-white" id="file4" data-bs-dismiss="offcanvas" data-bs-toggle="pill" data-bs-target="#file4-tab" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings<a class="btn-close btn-close-white float-end" aria-label="Close"></a></button>
+                        <button class="nav-link text-start text-white" id="file5" data-bs-dismiss="offcanvas" data-bs-toggle="pill" data-bs-target="#file5-tab" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings<a class="btn-close btn-close-white float-end" aria-label="Close"></a></button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="container-fluid">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="file1-tab" role="tabpanel" aria-labelledby="file1">
+                        <div class="card m-2">
+                            <div class="card-header">File 1</div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="row g-3 m-auto m-auto">
+                                        <div class="col-auto">
+                                            <label for="selectFont1" class="col-form-label">Select Font</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <select id="selectFont1" class="form-control"></select>
+                                        </div>
+                                        <div class="col-auto">
+                                            <label for="selectSize1" class="col-form-label">Select Font Size</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <select id="selectSize1" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div id="file1-content" class="card-body">
+                                <pre id="pre">
+                                    <code id="code" class="language-html edit" style="white-space: pre-wrap;" contenteditable="true" autocorrect="off" autocapitalize="off" spellcheck="false"> </code>
+                                </pre>
+                            </div>
+                            <div class="card-footer text-end">
+                                <a class="btn btn-primary" href="#">Save</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="file2-tab" role="tabpanel" aria-labelledby="file2">
+                        <div class="card m-2">
+                            <div class="card-header">File 2</div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="row g-3 m-auto">
+                                        <div class="col-auto">
+                                            <label for="selectFont2" class="col-form-label">Select Font</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <select id="selectFont2" class="form-control"></select>
+                                        </div>
+                                        <div class="col-auto">
+                                            <label for="selectSize2" class="col-form-label">Select Font Size</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <select id="selectSize2" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div id="file2-content" class="card-body">
+                                <code id="code" class="language-html edit" style="white-space: pre-wrap;display: block;" contenteditable="true" autocorrect="off" autocapitalize="off" spellcheck="false"></code>
+                            </div>
+                            <div class="card-footer text-end">
+                                <a class="btn btn-primary" href="#">Save</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="file3-tab" role="tabpanel" aria-labelledby="file3">
+                        <div class="card m-2">
+                            <div class="card-header">File 3</div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="row g-3 m-auto">
+                                        <div class="col-auto">
+                                            <label for="selectFont3" class="col-form-label">Select Font</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <select id="selectFont3" class="form-control"></select>
+                                        </div>
+                                        <div class="col-auto">
+                                            <label for="selectSize3" class="col-form-label">Select Font Size</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <select id="selectSize3" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div id="file3-content" class="card-body">
+                                <code id="code" class="language-html edit" style="white-space: pre-wrap;display: block;" contenteditable="true" autocorrect="off" autocapitalize="off" spellcheck="false"></code>
+                            </div>
+                            <div class="card-footer text-end">
+                                <a class="btn btn-primary" href="#">Save</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="file4-tab" role="tabpanel" aria-labelledby="file4">
+                        <div class="card m-2">
+                            <div class="card-header">File 4</div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="row g-3 m-auto">
+                                        <div class="col-auto">
+                                            <label for="selectFont4" class="col-form-label">Select Font</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <select id="selectFont4" class="form-control"></select>
+                                        </div>
+                                        <div class="col-auto">
+                                            <label for="selectSize4" class="col-form-label">Select Font Size</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <select id="selectSize4" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div id="file4-content" class="card-body">
+                                <code id="code" class="language-html edit" style="white-space: pre-wrap;display: block;" contenteditable="true" autocorrect="off" autocapitalize="off" spellcheck="false"></code>
+                            </div>
+                            <div class="card-footer text-end">
+                                <a class="btn btn-primary" href="#">Save</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="file5-tab" role="tabpanel" aria-labelledby="file4">
+                        <div class="card m-2">
+                            <div class="card-header">File 5</div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="row g-3 m-auto">
+                                        <div class="col-auto">
+                                            <label for="selectFont5" class="col-form-label">Select Font</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <select id="selectFont5" class="form-control"></select>
+                                        </div>
+                                        <div class="col-auto">
+                                            <label for="selectSize5" class="col-form-label">Select Font Size</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <select id="selectSize5" class="form-control"></select>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div id="file4-content" class="card-body">
+                                <code id="code" class="language-html edit" style="white-space: pre-wrap;display: block;" contenteditable="true" autocorrect="off" autocapitalize="off" spellcheck="false"></code>
+                            </div>
+                            <div class="card-footer text-end">
+                                <a class="btn btn-primary" href="#">Save</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <input type="file" id="fileopen" style="display: none;">
+            <a id="downloader"></a>
+            <div id="new Modal" class="modal" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Create new file</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Modal body text goes here.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav class="navbar sticky-bottom navbar-dark bg-dark">
+                <div class="container-fluid text-white">
+                    <h3 class="display-6 m-auto">Made with &hearts; in India</h1>
+                        <span id="lfoot" class="text-end badge rounded-pill bg-light text-dark d-none">Legacy</span>
+                </div>
+            </nav>
+        </footer>
+        <script src="prism.js"></script>
+        <script src="misbehave.js"></script>
+        <script src="textdiv.js"></script>
+        <script>
+            var code = document.querySelector('#code')
+            var misbehave = new Misbehave(code, {
+                oninput: function () {
+                    Prism.highlightElement(code)
+                },
+                pairs: [ [ '(', ')' ], [ '{', '}' ], [ '[', ']' ], [ '<', '>' ], [ "'" ], [ "`" ], [ '"' ] ]
+            })
+
+            var pre = document.querySelector('#pre')
+            pre.onclick = function () {
+                code.focus()
+                return false
+            }
+        </script>
+    </body>
+
+</html>
